@@ -10,8 +10,8 @@ import (
 
 // InitAdapter 权限初始化
 func InitAdapter(permission []map[string]int) *casbin.Enforcer {
-	adapter, err := gormadapter.NewAdapter("postgres", fmt.Sprintf("user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Shanghai",
-		PgsqlUsername, PgsqlPassword, "casbin", PgsqlPort))
+	adapter, err := gormadapter.NewAdapter("postgres", fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Shanghai",
+		PgsqlHost, PgsqlUsername, PgsqlPassword, "casbin", PgsqlPort))
 	if err != nil {
 		logrus.Fatal("new gorm adapter err:", err)
 	}

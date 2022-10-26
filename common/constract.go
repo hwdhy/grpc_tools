@@ -15,4 +15,5 @@ const (
 	PgsqlUsername = "postgres"
 	PgsqlPassword = "123456"
 	PgsqlPort     = 5432
+	PgsqlHost     = "8.8.8.8"
 )
