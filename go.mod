@@ -1,4 +1,4 @@
-module github.com/hwdhy/grpc_tools
+module grpc_tools
 
 go 1.19
 
