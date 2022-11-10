@@ -60,6 +60,10 @@ func ParseToken(tokenStr string, tokenKey string) *jwt.Token {
 
 // GetUserID 获取用户ID
 func GetUserID(tokenStr string, tokenKey string) (uint64, string) {
+	if tokenStr == "" {
+		return 0, ""
+	}
+
 	token := ParseToken(tokenStr, tokenKey)
 	if token == nil {
 		return 0, ""

@@ -5,7 +5,6 @@ import (
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/sirupsen/logrus"
-	"log"
 )
 
 // InitAdapter 项目启动重新加载接口权限
@@ -49,7 +48,7 @@ func InitAdapter(permission []map[string]int) *casbin.Enforcer {
 				if roleID >= p {
 					_, err = e.AddPolicy(roleName, requestUrl, "*")
 					if err != nil {
-						log.Fatalf("add policy err: %v", err)
+						logrus.Fatalf("add policy err: %v", err)
 					}
 				}
 			}
