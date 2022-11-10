@@ -14,7 +14,7 @@ type CustomClaims struct {
 }
 
 // GenerateToken 根据用户ID生成token
-func GenerateToken(userID uint64, role string, tokenKey string) string {
+func GenerateToken(userID uint64, role string) string {
 	claims := &CustomClaims{
 		userID,
 		role,
@@ -26,7 +26,7 @@ func GenerateToken(userID uint64, role string, tokenKey string) string {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenStr, err := token.SignedString([]byte(tokenKey))
+	tokenStr, err := token.SignedString([]byte(TokenKey))
 	if err != nil {
 		return ""
 	}
@@ -34,9 +34,9 @@ func GenerateToken(userID uint64, role string, tokenKey string) string {
 }
 
 // ParseToken 解析用户ID
-func ParseToken(tokenStr string, tokenKey string) *jwt.Token {
+func ParseToken(tokenStr string) *jwt.Token {
 	token, err := jwt.ParseWithClaims(tokenStr, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(tokenKey), nil
+		return []byte(TokenKey), nil
 	})
 	if err != nil {
 		logrus.Printf("parse token error: %v", err)
@@ -64,7 +64,7 @@ func GetUserID(tokenStr string, tokenKey string) (uint64, string) {
 		return 0, ""
 	}
 
-	token := ParseToken(tokenStr, tokenKey)
+	token := ParseToken(tokenStr)
 	if token == nil {
 		return 0, ""
 	}
