@@ -29,11 +29,14 @@ func (interceptor *AuthInterceptor) Unary(enforcer *casbin.Enforcer) grpc.UnaryS
 			token = md["grpcgateway-cookie"][0]
 		}
 		// 解析用户ID、角色ID
-		_, role := common.GetUserID(token, TokenKey)
+		userId, role := common.GetUserID(token, TokenKey)
 		if role == "" {
 			role = "tourists"
 		}
 
+		// 将角色id写入context中
+		ctx = context.WithValue(ctx, "role", role)
+		ctx = context.WithValue(ctx, "userId", userId)
 		// 接口权限校验
 		res, err := enforcer.Enforce(role, info.FullMethod, info.Server)
 		if err != nil {

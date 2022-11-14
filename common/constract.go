@@ -9,6 +9,7 @@ const (
 var RoleName = map[int]string{
 	NotLogged: "tourists",
 	HasLogged: "member",
+	Admin:     "admin",
 }
 
 const (
