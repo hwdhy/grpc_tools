@@ -34,10 +34,10 @@ func (interceptor *AuthInterceptor) Unary(enforcer *casbin.Enforcer) grpc.UnaryS
 			token = md["grpcgateway-cookie"][0]
 			// 解析用户ID、角色ID
 			userId, role = common.GetUserID(token, TokenKey)
-			if role == "" {
-				role = "tourists"
-			}
-		} else {
+		}
+
+		if role == "" {
+			role = "tourists"
 			// rpc调用 解析角色信息
 			if len(md["role"]) > 0 {
 				role = md["role"][0]
